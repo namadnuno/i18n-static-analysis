@@ -19,6 +19,26 @@ class TestStaticAnalisys(unittest.TestCase):
 
         self.assertTrue(len(result) == 2)
 
+    def test_get_namespace_from_t_func(self):
+        result = find_translations_in_string("""
+        const { t } = useTranslation();
+        ...
+        {t('test.lol')}
+        """)
+
+        self.assertTrue(len(result) == 1)
+        self.assertEqual('test', result[0].namespance)
+
+    def test_get_chained_key(self):
+        result = find_translations_in_string("""
+        const { t } = useTranslation();
+        ...
+        {t('test.foo.bar')}
+        """)
+
+        self.assertTrue(len(result) == 1)
+        self.assertEqual('test', result[0].namespance)
+        self.assertEqual('foo.bar', result[0].key)
 
 if __name__ == '__main__':
     unittest.main()
