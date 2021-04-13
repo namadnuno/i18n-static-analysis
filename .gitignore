@@ -1,3 +1,5 @@
 # Environments
 venv/
 /.idea/
+/reports/
+.env

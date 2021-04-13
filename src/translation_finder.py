@@ -17,18 +17,18 @@ def get_global_namespace(source_code: str) -> bool:
 
 
 def get_translations(source_code):
-    return re.findall(r'{t\(\'?([a-zA-Z\-\.\:]+)\'?\)}', source_code)
+    return re.findall(r'{t\(\'([a-zA-Z\-\.\:]+)\'\)}', source_code)
 
 
-def get_namespace_from_translation(translation_key: str):
+def get_namespace_from_translation(translation_key: str, default_namespace):
     if len(translation_key.split('.')) == 1:
-        raise Exception("No namespace found on translation key")
+        return default_namespace
     return translation_key.split('.')[0]
 
 
-def find_translations_in_string(source_code: str) -> list[Translation]:
+def find_translations_in_string(source_code: str, default_namespace: str = '') -> list[Translation]:
     if not translation_is_initialized(source_code):
-        raise Exception("The translations are not initialized")
+        raise Exception("The translations are not initialized, see: \n" + source_code)
 
     g_namespace = get_global_namespace(source_code)
 
@@ -38,8 +38,12 @@ def find_translations_in_string(source_code: str) -> list[Translation]:
         namespace = g_namespace
         key = translation_key
         if not namespace:
-            namespace = get_namespace_from_translation(translation_key)
+            namespace = get_namespace_from_translation(translation_key, default_namespace)
             key = translation_key.replace(namespace + '.', '')
         found.append(Translation(namespace, key))
 
     return found
+
+
+def has_translations(source_code: str):
+    return translation_is_initialized(source_code)
