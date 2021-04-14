@@ -24,6 +24,12 @@ def run(path, config: dict[str: str]):
             f.write(ut + ":" + str(t))
             f.write("\n")
 
+
+    """
+    TODO: Now i need to get all the translations available with the corresponding namespaces and search witch one
+     of those are not in use
+    """
+
     print('done!')
 
 
