@@ -40,5 +40,16 @@ class TestStaticAnalisys(unittest.TestCase):
         self.assertEqual('test', result[0].namespance)
         self.assertEqual('foo.bar', result[0].key)
 
+    def test_get_with_default_namespace(self):
+        result = find_translations_in_string("""
+        const { t } = useTranslation();
+        ...
+        {t('bar')}
+        """, "test")
+
+        self.assertTrue(len(result) == 1)
+        self.assertEqual('test', result[0].namespance)
+        self.assertEqual('bar', result[0].key)
+
 if __name__ == '__main__':
     unittest.main()
