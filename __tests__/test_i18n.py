@@ -1,7 +1,7 @@
 import unittest
 from src.translation_finder import find_translations_in_string
 
-class TestStaticAnalisys(unittest.TestCase):
+class TestI18n(unittest.TestCase):
     def test_it_raises_an_exepction_when_the_useTranslation_is_not_initialized(self):
         with self.assertRaises(BaseException) as context:
             find_translations_in_string("t('lol')")
