@@ -19,6 +19,17 @@ class TestStaticAnalisys(unittest.TestCase):
 
         self.assertTrue(len(result) == 2)
 
+    def test_is_returns_a_translations_with_t_with_type(self):
+        result = find_translations_in_string("""
+        const { t: tBase } = useTranslation('product');
+        ...
+        {t('lol')}
+        ...
+        {t('xpto')}
+        """)
+
+        self.assertTrue(len(result) == 2)
+
     def test_get_namespace_from_t_func(self):
         result = find_translations_in_string("""
         const { t } = useTranslation();
