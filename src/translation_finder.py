@@ -8,7 +8,7 @@ class Translation():
 
 
 def translation_is_initialized(source_code: str) -> bool:
-    r = re.findall(r'{\s?t\:?\s?([a-zA-Z]+)?\s?}\s?=\s?useTranslation\(\'?([a-zA-Z]+)?\'?\)', source_code)
+    r = re.findall(r'{\s?t\:?\s?,?\s?([a-zA-Z1-9]+)?\s?}\s?=\s?useTranslation\(\'?([a-zA-Z]+)?\'?\)', source_code)
     return len(r) > 0
 
 
